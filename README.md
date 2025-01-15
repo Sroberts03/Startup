@@ -9,6 +9,21 @@ Relive the classic charm of Pong with a modern twist! Our web-based remake offer
 
 ### Design
 
+Login:
+![Mock](Login.jpeg)
+
+Start Button:
+![Mock](StartGame.jpeg)
+
+Game Play:
+![Mock](PongGame.jpeg)
+
+About:
+![Mock](About.jpeg)
+
+Leader Board:
+![Mock](Scores.jpeg)
+
 ### Key Features
 
 ### Technologies
