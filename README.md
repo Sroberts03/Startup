@@ -26,6 +26,11 @@ Leader Board:
 
 ### Key Features
 
+- Secure login over HTTPS
+- Ability to store high scores and display them
+- Ability to take mouse input and move pong board
+- Ability for CPU to see the ball and hit it back
+
 ### Technologies
 
 I am going to use the required technologies in the following ways:
