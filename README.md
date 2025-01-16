@@ -1,4 +1,4 @@
-# Pong Remade
+# Oregon Trail Online
 CS260 website startup
 
 ## Specification Deliverable
