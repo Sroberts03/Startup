@@ -10,19 +10,19 @@ Experience the classic adventure of Oregon Trail reimagined for the web, combini
 ### Design
 
 Login:
-![Mock](Login.jpeg)
+![Mock](login.jpeg)
 
 Start Button:
-![Mock](StartGame.jpeg)
+![Mock](startGame.jpeg)
 
 Game Play:
-![Mock](PongGame.jpeg)
+![Mock](gamePlay.jpeg)
 
 About:
-![Mock](About.jpeg)
+![Mock](about.jpeg)
 
 Leader Board:
-![Mock](Scores.jpeg)
+![Mock](leaderBoard.jpeg)
 
 ### Key Features
 
