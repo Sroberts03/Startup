@@ -28,8 +28,7 @@ Leader Board:
 
 - Secure login over HTTPS
 - Ability to store high scores and display them
-- Ability to take mouse input and move pong board
-- Ability for CPU to see the ball and hit it back
+- Simple animation
 
 ### Technologies
 
