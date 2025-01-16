@@ -16,7 +16,7 @@ Start Button:
 ![Mock](startGame.jpeg)
 
 Game Play:
-![Mock](gamePlay.jpeg)
+![Mock](gamPlay.jpeg)
 
 About:
 ![Mock](about.jpeg)
