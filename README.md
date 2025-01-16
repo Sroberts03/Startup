@@ -5,7 +5,7 @@ CS260 website startup
 
 ### Elevator Pitch
 
-Relive the classic charm of Pong with a modern twist! Our web-based remake offers the timeless gameplay you love, with responsive controls and sleek, minimalist design. Compete for the top spot on the global leaderboard, showcasing high scores from players around the world. No downloads or AI opponents—just pure skill, endless fun, and the chance to prove you’re the best. Simple, addictive, and ready to play in your browser!
+Experience the classic adventure of Oregon Trail reimagined for the web, combining nostalgic gameplay with modern enhancements. Challenge your skills as you lead your wagon party through treacherous terrain, resource shortages, and unexpected events, all while competing with players worldwide. With an integrated leaderboard, you can track your progress and see how you stack up against others in your quest to conquer the frontier. It's a fresh take on a timeless journey—strategic, educational, and endlessly replayable!
 
 ### Design
 
