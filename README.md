@@ -41,3 +41,11 @@ I am going to use the required technologies in the following ways:
   - login
 - **DB/Login** - stores users and scores.
 - **WebSocket** - High scores are broadcast to all other users.
+
+
+###HTML Deliverable
+
+For this deliverable I added:
+
+- **HTML Pages** 5 individual html pages. One for each view. "index.html" (Login) --> "start_game.html"
+(start button) --> "game_play.html" (the game), "about.html" (about page), "leader_board.html" (high scores).
