@@ -29,7 +29,7 @@
     background-color: black;
     border-radius: 8px;   
     font-family: Arial, sans-serif;
-    transform: translate(300%, 10%);
+    transform: translate(300%, -310%);
     color: greenyellow;
     }
 
@@ -43,9 +43,4 @@
     border-radius: 8px;   
     font-family: Arial, sans-serif;
     transform: translate(10%, 10%);
-    }
-
-.player-conditions-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     }
