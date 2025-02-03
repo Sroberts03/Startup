@@ -7,6 +7,7 @@
     border-radius: 8px;   
     font-family: Arial, sans-serif;
     color: greenyellow;
+    transform: translate(67%, 100%);
     }
 
 .text-box-player-conditions-left {
@@ -17,7 +18,7 @@
     background-color: black;
     border-radius: 8px;   
     font-family: Arial, sans-serif;
-    transform: translate(-300%, -10%);
+    transform: translate(10%, -10%);
     color: greenyellow;
     }
 
@@ -29,7 +30,7 @@
     background-color: black;
     border-radius: 8px;   
     font-family: Arial, sans-serif;
-    transform: translate(300%, -310%);
+    transform: translate(675%, -300%);
     color: greenyellow;
     }
 
@@ -42,5 +43,5 @@
     background-color: black;
     border-radius: 8px;   
     font-family: Arial, sans-serif;
-    transform: translate(10%, 10%);
+    transform: translate(0, 0);
     }

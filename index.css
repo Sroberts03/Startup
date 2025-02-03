@@ -1,0 +1,7 @@
+.image {
+    background-image: url('start_game.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 450px;
+    width: 800px;
+}
