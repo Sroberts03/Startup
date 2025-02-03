@@ -1,0 +1,51 @@
+.text-box-game-output {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 500px;
+    height: 150px;            
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    color: greenyellow;
+    }
+
+.text-box-player-conditions-left {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 150px; 
+    height: 50px;           
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(-300%, -10%);
+    color: greenyellow;
+    }
+
+.text-box-player-conditions-right {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 150px; 
+    height: 50px;           
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(300%, 10%);
+    color: greenyellow;
+    }
+
+.game-box {
+    border: 5px solid black;
+    padding: 10px;         
+    width: 1200px; 
+    height: 700px; 
+    position: absolute;          
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(10%, 10%);
+    }
+
+.player-conditions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    }
