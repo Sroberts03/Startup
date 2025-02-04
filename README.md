@@ -52,6 +52,11 @@ For this deliverable I added:
 
 ###CSS Deliverable
 
-For this deliverable I added:
+For this deliverable I did the following. I checked the box [x] and added a description for things I completed.
 
-- **CSS Pages** 5 CSS files/templates added. I added a place holder for my later DB with player scores. I also added a place holder animation for the game.
+[x] Header, footer, and main content body - I did complete this part of the deliverable.
+[x] Navigation elements - I did complete this part of the deliverable.
+[x] Responsive to window resizing - I did complete this part of the deliverable.
+[x] Application elements - I did complete this part of the deliverable.
+[x] Application text content - I did complete this part of the deliverable.
+[x] Application images - I did complete this part of the deliverable.
