@@ -49,3 +49,9 @@ For this deliverable I added:
 
 - **HTML Pages** 5 individual html pages. One for each view. "index.html" (Login) --> "start_game.html"
 (start button) --> "game_play.html" (the game), "about.html" (about page), "leader_board.html" (high scores).
+
+###CSS Deliverable
+
+For this deliverable I added:
+
+- **CSS Pages** 5 CSS files/templates added. I added a place holder for my later DB with player scores. I also added a place holder animation for the game.
