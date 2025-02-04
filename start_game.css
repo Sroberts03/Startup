@@ -1,0 +1,64 @@
+.start-button{
+    background-color: black;
+    border: 3px solid yellowgreen;
+    color: yellowgreen;
+    font-size: 25px;
+    height: 125px;
+    width: 250px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    position: absolute;
+}
+
+.text-box-game-output {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 500px;
+    height: 150px;            
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    color: greenyellow;
+    transform: translate(67%, 100%);
+    opacity: 0.2;
+    }
+
+.text-box-player-conditions-left {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 150px; 
+    height: 50px;           
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(10%, -10%);
+    color: greenyellow;
+    opacity: 0.2;
+    }
+
+.text-box-player-conditions-right {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 150px; 
+    height: 50px;           
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(675%, -300%);
+    color: greenyellow;
+    opacity: 0.2;
+    }
+
+.game-box {
+    border: 5px solid black;
+    padding: 10px;         
+    width: 1200px; 
+    height: 700px; 
+    position: absolute;          
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(0, 0);
+    opacity: 0.2;
+    }
