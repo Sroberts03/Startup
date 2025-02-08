@@ -18,22 +18,22 @@ export default function App() {
                 </div>
                 <menu className="navbar-nav">
                     <li className="nav-item">
-                        <NavLink className='nav-link' to=''>
+                        <NavLink className="nav-link" to=''>
                             Login
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className='nav-link' to='start_game'>
+                        <NavLink className="nav-link" to='start_game'>
                             Start Game
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className='nav-link' to='Scores'>
+                        <NavLink className="nav-link" to='scores'>
                             Leader Board
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className='nav-link' to='About'>
+                        <NavLink className="nav-link" to='about'>
                             About
                         </NavLink>
                     </li>
