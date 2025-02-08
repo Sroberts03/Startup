@@ -1,5 +1,4 @@
 import React from 'react';
-import 'game_play.css'
 
 export function Game_Play() {
   return (
