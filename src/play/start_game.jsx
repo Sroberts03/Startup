@@ -50,16 +50,16 @@ export function GamePlay() {
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
         <div>
-          <img src="/public/cloud.jpg" class="moving-cloud-one"/>
+          <img src="/cloud.jpg" class="moving-cloud-one"/>
         </div>
         <div>
-          <img src="/public/cloud.jpg" class="moving-cloud-two"/>
+          <img src="/cloud.jpg" class="moving-cloud-two"/>
         </div>
         <div>
-          <img src="/public/cloud.jpg" class="moving-cloud-three"/>
+          <img src="/cloud.jpg" class="moving-cloud-three"/>
         </div>
         <div className="wagon-image-position" align="center">
-          <img src="/public/wagon.jpg" alt="Vibrating Image" className="vibrating"/>
+          <img src="/wagon.jpg" className="vibrating"/>
         </div>
         <div className="text-box-player-conditions-left" align="center" color="black">
           <p>Life: 10</p>
