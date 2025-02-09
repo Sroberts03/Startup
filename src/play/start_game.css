@@ -5,13 +5,13 @@
     font-size: 25px;
     height: 125px;
     width: 250px;
-    transform: translate(-50%, -50%);
+    transform: translate(0%, -50%);
     text-align: center;
     font-family: Arial, sans-serif;
     position: absolute;
-}
+    }
 
-.text-box-game-output {
+.text-box-game-output-start {
     border: 2px solid greenyellow;
     padding: 10px;         
     width: 500px;
@@ -24,7 +24,7 @@
     opacity: 0.2;
     }
 
-.text-box-player-conditions-left {
+.text-box-player-conditions-left-start {
     border: 2px solid greenyellow;
     padding: 10px;         
     width: 150px; 
@@ -37,7 +37,7 @@
     opacity: 0.2;
     }
 
-.text-box-player-conditions-right {
+.text-box-player-conditions-right-start {
     border: 2px solid greenyellow;
     padding: 10px;         
     width: 150px; 
@@ -50,11 +50,11 @@
     opacity: 0.2;
     }
 
-.game-box {
+.game-box-start {
     border: 5px solid black;
     padding: 10px;         
     width: 1200px; 
-    height: 700px; 
+    height: 650px; 
     position: absolute;          
     background-color: black;
     border-radius: 8px;   
@@ -62,3 +62,123 @@
     transform: translate(0, 0);
     opacity: 0.2;
     }
+
+.text-box-game-output {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 500px;
+    height: 150px;            
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    color: greenyellow;
+    transform: translate(67%, 80%);
+    }
+    
+.text-box-player-conditions-left {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 150px; 
+    height: 50px;           
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(10%, -10%);
+    color: greenyellow;
+    }
+    
+.text-box-player-conditions-right {
+    border: 2px solid greenyellow;
+    padding: 10px;         
+    width: 150px; 
+    height: 50px;           
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(675%, -300%);
+    color: greenyellow;
+    }
+    
+.game-box {
+    border: 5px solid black;
+    padding: 10px;         
+    width: 1200px; 
+    height: 650px; 
+    position: absolute;          
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(0, 0);
+    }
+    
+@keyframes vibrate {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(2px, 2px); }
+    100% { transform: translate(0); }
+    }
+      
+.vibrating {
+    animation: vibrate 0.2s infinite linear;
+    width: 200px;
+    height: auto;
+    margin: -100px;
+    }
+
+.wagon-image-position {
+    position: absolute;
+    top: 350px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }
+
+@keyframes moveCloudOne {
+    0% {
+      transform: translateX(-200%);
+    }
+    100% {
+      transform: translateX(60%);
+    }
+}
+      
+.moving-cloud-one {
+    position: absolute;
+    top: 50px; 
+    width: 150px;
+    animation: moveCloudOne 5s linear infinite;
+}
+
+@keyframes moveCloudTwo {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(40%);
+    }
+}
+      
+.moving-cloud-two {
+    position: absolute;
+    top: 20px; 
+    width: 100px;
+    animation: moveCloudTwo 2s linear infinite;
+}
+
+@keyframes moveCloudThree {
+    0% {
+      transform: translateX(-150%);
+    }
+    100% {
+      transform: translateX(50%);
+    }
+}
+      
+.moving-cloud-three {
+    position: absolute;
+    top: 100px; 
+    width: 200px;
+    animation: moveCloudThree 6s linear infinite;
+}
