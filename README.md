@@ -60,3 +60,10 @@ For this deliverable I did the following. I checked the box [x] and added a desc
 [x] Application elements - I did complete this part of the deliverable.
 [x] Application text content - I did complete this part of the deliverable.
 [x] Application images - I did complete this part of the deliverable.
+
+###React Pt.1 Deliverabele
+
+for this deliverable I did the following:
+[x] created the vite files
+[x] created the index.jsx file as well as the app.jsx file
+[x] ported all html into react
