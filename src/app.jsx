@@ -6,8 +6,13 @@ import { Login } from './login/login';
 import { StartGame } from './play/start_game';
 import { Scores } from './scores/scores';
 import { About } from './about/about';
+import { AuthState } from './login/authState';
 
-export default function App() {
+function App() {
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
+
     return (
     <BrowserRouter>
       <div className='body bg-dark text-light'>
@@ -22,16 +27,20 @@ export default function App() {
                             Login
                         </NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to='start_game'>
-                            Start Game
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to='scores'>
-                            Leader Board
-                        </NavLink>
-                    </li>
+                    {authState === AuthState.Authenticated && (
+                        <li className='nav-item'>
+                            <NavLink className='nav-link' to='start_game'>
+                                Play
+                            </NavLink>
+                        </li>
+                    )}
+                    {authState === AuthState.Authenticated && (
+                        <li className='nav-item'>
+                            <NavLink className='nav-link' to='scores'>
+                                Scores
+                            </NavLink>
+                        </li>
+                    )}
                     <li className="nav-item">
                         <NavLink className="nav-link" to='about'>
                             About
@@ -42,7 +51,20 @@ export default function App() {
         </header>
   
         <Routes>
-            <Route path='/' element={<Login />} exact />
+            <Route
+                path='/'
+                element={
+                    <Login
+                        userName={userName}
+                        authState={authState}
+                        onAuthChange={(userName, authState) => {
+                            setAuthState(authState);
+                            setUserName(userName);
+                        }}
+                    />
+                }
+                exact
+            />
             <Route path='/start_game' element={<StartGame />} />
             <Route path='/scores' element={<Scores />} />
             <Route path='/about' element={<About />} />
@@ -63,3 +85,5 @@ export default function App() {
 function NotFound() {
     return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
 }
+
+export default App;

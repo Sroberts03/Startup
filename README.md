@@ -67,3 +67,9 @@ for this deliverable I did the following:
 [x] created the vite files
 [x] created the index.jsx file as well as the app.jsx file
 [x] ported all html into react
+
+###React pt.2 Deliverabele
+
+for this deliverable I did the following:
+[x] Scores are actually interactive
+[x] Login page functioning properly
