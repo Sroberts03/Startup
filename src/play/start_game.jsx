@@ -63,6 +63,7 @@ export function GamePlay({ game }) {
   const handleNext = () => {
     if (gameState === 'welcome') setGameState('animation');
     else if (gameState === 'event') setGameState('animation');
+    {game.updateGameState()}
   };
 
   if (gameState === 'welcome') return <Welcome game={game} onNext={handleNext} />;
@@ -135,6 +136,9 @@ function Event({ game, onNext }) {
         <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
         <div className="text-box-game-output" align="center">
           {game.events()}
+          {game.dailyUpdates()}
+          <p>Day {game.getDay()}:</p>
+          <p>{game.getMessage()}</p>
           <button onClick={onNext}>Next</button>
         </div>
       </nav>

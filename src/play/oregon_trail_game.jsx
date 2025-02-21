@@ -8,6 +8,16 @@ export class OregonTrailGame {
         this.first_aid = 1;
         this.game_over = false;
         this.game_won = false;
+        this.message = '';
+        this.day = 0;
+    }
+
+    getDay() {
+        return this.day;
+    }
+
+    getMessage() {
+        return this.message;
     }
 
     getLife() {
@@ -79,6 +89,24 @@ export class OregonTrailGame {
             this.game_won = true;
         }
     }
+
+    dailyUpdates() {
+        this.day += 1;
+        this.water -= 1;
+        if (this.water < 0) {
+            this.water = 0;
+        }
+        if (this.water == 0) {
+            this.life -= 1;
+        }
+        this.food -= 1;
+        if (this.food < 0) {
+            this.food = 0;
+        }
+        if (this.food == 0) {
+            this.life -= 1;
+        }
+    }
     
     events() {
         const events = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -86,45 +114,45 @@ export class OregonTrailGame {
         if (randomEvent == 1) {
             this.miles_left -= 100;
             this.percent = Math.floor((2170 - this.miles_left) / 2170 * 100);
-            this.updateGameState();
+            this.message = "Normal day of travel. 100 miles closer.";
         } 
         if (randomEvent == 2) {
             this.life -= 1;
             this.miles_left -= 50;
             this.percent = Math.floor((2170 - this.miles_left) / 2170 * 100);
-            this.updateGameState();
+            this.message = "You have lost 1 life and only travled 50 miles due to a broken leg";
         }
         if (randomEvent == 3) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 4) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 5) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 6) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 7) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 8) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 9) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
         if (randomEvent == 10) {
-            this.miles_left -= 100;
-            this.updateGameState();
+            this.life = 0;
+            this.message = "You have died of dysentery";
         }
     }
 }
