@@ -37,7 +37,7 @@ function App() {
                     {authState === AuthState.Authenticated && (
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='scores'>
-                                Scores
+                                Leader Board
                             </NavLink>
                         </li>
                     )}

@@ -7,7 +7,7 @@ export function StartGame() {
   const [gameInstance, setGameInstance] = useState(null);
 
   const handleStartClick = () => {
-    const game = new OregonTrailGame(); // Create game instance
+    const game = new OregonTrailGame();
     setGameInstance(game);
     setStartGame(true);
   };
@@ -53,7 +53,7 @@ export function GamePlay({ game }) {
 
   useEffect(() => {
     if (gameState === 'animation') {
-      const timer = setTimeout(() => setGameState('event'), 5000);
+      const timer = setTimeout(() => setGameState('event'), 2000);
       return () => clearTimeout(timer);
     } else if (gameState === 'event' && (game.getGameOver() || game.getGameWon())) {
       setGameState(game.getGameOver() ? 'gameOver' : 'gameWon');
@@ -85,12 +85,12 @@ function Welcome({ game, onNext }) {
         <div className="wagon-image-position" align="center">
           <img src="/wagon.jpg" className="still" alt="wagon" />
         </div>
-        <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
+        <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+        <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
+        <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+        <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+        <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
         <div className="text-box-game-output" align="center">
           <p>Welcome to the trail traveler! Good luck out there!</p>
           <button onClick={onNext}>Next</button>
@@ -110,12 +110,12 @@ function Animation({ game }) {
         <div className="wagon-image-position" align="center">
           <img src="/wagon.jpg" className="vibrating" alt="wagon" />
         </div>
-        <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
+        <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+        <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
+        <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+        <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+        <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
       </nav>
     </main>
   );
@@ -130,12 +130,12 @@ function Event({ game, onNext }) {
         <div className="wagon-image-position" align="center">
           <img src="/wagon.jpg" className="still" alt="wagon" />
         </div>
-        <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
+        <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+        <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
+        <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+        <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+        <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
         <div className="text-box-game-output" align="center">
           {game.events()}
           {game.dailyUpdates()}

@@ -92,19 +92,81 @@ export class OregonTrailGame {
 
     dailyUpdates() {
         this.day += 1;
-        this.water -= 1;
-        if (this.water < 0) {
-            this.water = 0;
+        this.addAndSubWater(1, 'subtract', true);
+        this.addAndSubtractFood(1, 'subtract', true);
+    }
+
+    subtrackMiles(miles) {
+        this.miles_left -= miles;
+        if (this.miles_left < 0) {
+            this.miles_left = 0;
         }
-        if (this.water == 0) {
-            this.life -= 1;
+        this.percent = Math.floor((2170 - this.miles_left) / 2170 * 100);
+    }
+
+    addAndSubtractFood(food, condition, dailyUpdates = false) {
+        if (condition == 'add') {
+            this.food += food;
+            if (this.food > 50) {
+                this.food = 50;
+            }
         }
-        this.food -= 1;
-        if (this.food < 0) {
-            this.food = 0;
+        if (condition == 'subtract') {
+            this.food -= food;
+            if (this.food < 0) {
+                this.food = 0;
+            }
+            if (dailyUpdates == true && this.food == 0) {
+                this.addAndSubLife(1, 'subtract');
+            }
         }
-        if (this.food == 0) {
-            this.life -= 1;
+    }
+
+    addAndSubWater(water, condition, dailyUpdates = false) {
+        if (condition == 'add') {
+            this.water += water;
+            if (this.water > 10) {
+                this.water = 10;
+            }
+        }
+        if (condition == 'subtract') {
+            this.water -= water;
+            if (this.water < 0) {
+                this.water = 0;
+            }
+            if (dailyUpdates= true && this.water == 0) {
+                this.addAndSubLife(1, 'subtract');
+            }
+        }
+    }
+
+    addAndSubLife(life, condition) {
+        if (condition == 'add') {
+            this.life += life;
+            if (this.life > 10) {
+                this.life = 10;
+            }
+        }
+        if (condition == 'subtract') {
+            this.life -= life;
+            if (this.life < 0) {
+                this.life = 0;
+            }
+        }
+    }
+
+    addAndSubFistAid(first_aid, condition) {
+        if (condition == 'add') {
+            this.first_aid += first_aid;
+            if (this.first_aid > 10) {
+                this.first_aid = 10;
+            }
+        }
+        if (condition == 'subtract') {
+            this.first_aid -= first_aid;
+            if (this.first_aid < 0) {
+                this.first_aid = 0;
+            }
         }
     }
     
@@ -112,47 +174,52 @@ export class OregonTrailGame {
         const events = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         const randomEvent = this.randomEvent(events);
         if (randomEvent == 1) {
-            this.miles_left -= 100;
-            this.percent = Math.floor((2170 - this.miles_left) / 2170 * 100);
             this.message = "Normal day of travel. 100 miles closer.";
+            this.subtrackMiles(100);
         } 
         if (randomEvent == 2) {
-            this.life -= 1;
-            this.miles_left -= 50;
-            this.percent = Math.floor((2170 - this.miles_left) / 2170 * 100);
             this.message = "You have lost 1 life and only travled 50 miles due to a broken leg";
+            this.addAndSubLife(1, 'subtract');
+            this.subtrackMiles(50);
         }
         if (randomEvent == 3) {
-            this.life = 0;
             this.message = "You have died of dysentery";
+            this.life = 0;
         }
         if (randomEvent == 4) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            var foodAmount = Math.floor(Math.random() * 10);
+            this.message = "You have found a Hunting Ground. You have gained " + foodAmount + " food, and traveled 25 miles.";
+            this.addAndSubtractFood(foodAmount, 'add');
+            this.subtrackMiles(25);
         }
         if (randomEvent == 5) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            this.message = "You have found a river with fish. You have gained 5 food, and traveled 25 miles.";
+            this.addAndSubtractFood(5, 'add');
+            this.subtrackMiles(25);
         }
         if (randomEvent == 6) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            var waterAmount = Math.floor(Math.random() * 5);
+            this.message = "You have found clean water. You have gained " + waterAmount + " water, and traveled 25 miles.";
+            this.addAndSubWater(waterAmount, 'add');
         }
         if (randomEvent == 7) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            this.message = "Broken wagon wheel. You made no progress today.";
         }
         if (randomEvent == 8) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            this.message = "Bandit attack. You have lost 1 life and 10 food.";
+            this.addAndSubLife(1, 'subtract');
+            this.addAndSubtractFood(10, 'subtract');
         }
         if (randomEvent == 9) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            this.message = "You have found a town. You have gained 1 first aid kit, and traveled 50 miles.";
+            this.addAndSubLife(1, 'add');
+            this.subtrackMiles(50);
+            this.addAndSubFistAid(1, 'add');
         }
         if (randomEvent == 10) {
-            this.life = 0;
-            this.message = "You have died of dysentery";
+            this.message = "You really pushed yourself today. You have lost 1 life, but traveled 150 miles.";
+            this.addAndSubLife(1, 'subtract');
+            this.subtrackMiles(150);
         }
     }
 }
