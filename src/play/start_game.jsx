@@ -77,11 +77,10 @@ function Welcome({ game, onNext }) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
         <div className="wagon-image-position" align="center">
-          <img src="/wagon.jpg" alt="wagon" />
+          <img src="/wagon.jpg" className="still" alt="wagon" />
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
@@ -123,11 +122,10 @@ function Event({ game, onNext }) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
         <div className="wagon-image-position" align="center">
-          <img src="/wagon.jpg" alt="wagon" />
+          <img src="/wagon.jpg" className="still" alt="wagon" />
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
@@ -148,11 +146,10 @@ function GameOver({ game }) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
+      <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+      <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
         <div className="wagon-image-position" align="center">
-          <img src="/wagon.jpg" alt="wagon" />
+          <img src="/wagon.jpg" className="still" alt="wagon" />
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
@@ -172,11 +169,10 @@ function GameWon({ game }) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
-        <div><img src="/cloud.jpg" alt="cloud" /></div>
+      <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+      <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
         <div className="wagon-image-position" align="center">
-          <img src="/wagon.jpg" alt="wagon" />
+          <img src="/wagon.jpg" className="still" alt="wagon" />
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>

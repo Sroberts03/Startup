@@ -182,3 +182,22 @@
     width: 200px;
     animation: moveCloudThree 6s linear infinite;
 }
+
+.still {
+    width: 200px;
+    height: auto;
+    margin: -100px;
+    }
+
+.still-cloud-one {
+    position: absolute;
+    top: 50px; 
+    width: 150px;
+}
+
+.still-cloud-three {
+    position: absolute;
+    top: 100px; 
+    left: 275px;
+    width: 200px;
+}
