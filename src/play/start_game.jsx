@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './start_game.css';
 import { OregonTrailGame } from './oregon_trail_game.jsx';
 
-export function StartGame() {
+export function StartGame({userName}) {
   const [startGame, setStartGame] = useState(false);
   const [gameInstance, setGameInstance] = useState(null);
 
   const handleStartClick = () => {
-    const game = new OregonTrailGame();
+    const game = new OregonTrailGame(userName);
     setGameInstance(game);
     setStartGame(true);
   };
@@ -53,7 +53,7 @@ export function GamePlay({ game }) {
 
   useEffect(() => {
     if (gameState === 'animation') {
-      const timer = setTimeout(() => setGameState('event'), 2000);
+      const timer = setTimeout(() => setGameState('event'), 3000);
       return () => clearTimeout(timer);
     } else if (gameState === 'event' && (game.getGameOver() || game.getGameWon())) {
       setGameState(game.getGameOver() ? 'gameOver' : 'gameWon');
@@ -149,6 +149,9 @@ function Event({ game, onNext }) {
 }
 
 function GameOver({ game }) {
+  useEffect(() => {
+    saveScore(game.getPercent(), game.getUserName());
+  }, [game]);
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
@@ -163,6 +166,9 @@ function GameOver({ game }) {
 }
 
 function GameWon({ game }) {
+  useEffect(() => {
+    saveScore(game.getPercent(), game.getUserName());
+  }, [game]);
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
@@ -174,4 +180,35 @@ function GameWon({ game }) {
       </nav>
     </main>
   );
+}
+
+function updateScoresLocal(newScore) {
+  try {
+    const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
+    existingScores.push(newScore);
+    const sortedScores = existingScores
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+    localStorage.setItem('scores', JSON.stringify(sortedScores));
+  } catch (error) {
+    console.error('Failed to save score locally:', error);
+  }
+}
+
+async function saveScore(score, userName) {
+  const date = new Date().toLocaleDateString();
+  const newScore = { 
+    name: userName, 
+    score: score, 
+    date: date
+  };
+
+  try {
+    updateScoresLocal(newScore);
+    return true;
+
+  } catch (error) {
+    console.error('Error saving score:', error);
+    return false;
+  }
 }

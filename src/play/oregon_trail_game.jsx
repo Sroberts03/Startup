@@ -1,5 +1,5 @@
 export class OregonTrailGame {
-    constructor() {
+    constructor(userName) {
         this.life = 10;
         this.miles_left = 2170;
         this.percent = 0;
@@ -10,6 +10,11 @@ export class OregonTrailGame {
         this.game_won = false;
         this.message = '';
         this.day = 0;
+        this.userName = userName;
+    }
+
+    getUserName() {
+        return this.userName;
     }
 
     getDay() {
@@ -201,6 +206,7 @@ export class OregonTrailGame {
             var waterAmount = Math.floor(Math.random() * 5);
             this.message = "You have found clean water. You have gained " + waterAmount + " water, and traveled 25 miles.";
             this.addAndSubWater(waterAmount, 'add');
+            this.subtrackMiles(25);
         }
         if (randomEvent == 7) {
             this.message = "Broken wagon wheel. You made no progress today.";
