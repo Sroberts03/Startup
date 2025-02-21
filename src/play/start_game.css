@@ -63,6 +63,19 @@
     opacity: 0.2;
     }
 
+.game-over {
+    background-color: black;
+    border: 3px solid yellowgreen;
+    color: yellowgreen;
+    font-size: 25px;
+    height: 250px;
+    width: 500px;
+    transform: translate(60%, 75%);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    position: absolute;
+    }
+
 .text-box-game-output {
     border: 2px solid greenyellow;
     padding: 10px;         

@@ -26,7 +26,7 @@ export function StartGame() {
           <p>Miles: 2170</p>
         </div>
         <div className="text-box-player-conditions-left-start" align="center">
-          <p>Percent: 30%</p>
+          <p>Percent: 0%</p>
         </div>
         <div className="text-box-player-conditions-right-start" align="center">
           <p>Water: 10</p>
@@ -64,6 +64,8 @@ export function GamePlay({ game }) {
     if (gameState === 'welcome') setGameState('animation');
     else if (gameState === 'event') setGameState('animation');
     {game.updateGameState()}
+    if (game.getGameOver()) setGameState('gameOver');
+    else if (game.getGameWon()) setGameState('gameWon');
   };
 
   if (gameState === 'welcome') return <Welcome game={game} onNext={handleNext} />;
@@ -85,7 +87,7 @@ function Welcome({ game, onNext }) {
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}</div>
+        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
         <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
         <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
         <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
@@ -110,7 +112,7 @@ function Animation({ game }) {
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}</div>
+        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
         <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
         <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
         <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
@@ -130,7 +132,7 @@ function Event({ game, onNext }) {
         </div>
         <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
         <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}</div>
+        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
         <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
         <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
         <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
@@ -150,20 +152,11 @@ function GameOver({ game }) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
-      <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
-      <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
-        <div className="wagon-image-position" align="center">
-          <img src="/wagon.jpg" className="still" alt="wagon" />
-        </div>
-        <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
-        <div className="text-box-game-output" align="center">
-          <p>You didn't make it to Oregon! Better luck next time</p>
-        </div>
+        <nav className="game-over" align="center">
+          <p>GAME OVER!!</p>
+          <p>You didn't make it to Oregon! Better luck next time!!</p>
+          <button onClick={() => window.location.reload()}>Restart</button>
+        </nav>
       </nav>
     </main>
   );
@@ -173,20 +166,11 @@ function GameWon({ game }) {
   return (
     <main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
-      <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
-      <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
-        <div className="wagon-image-position" align="center">
-          <img src="/wagon.jpg" className="still" alt="wagon" />
-        </div>
-        <div className="text-box-player-conditions-left" align="center">{game.getLife()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getMilesLeft()}</div>
-        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getWater()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFood()}</div>
-        <div className="text-box-player-conditions-right" align="center">{game.getFirstAid()}</div>
-        <div className="text-box-game-output" align="center">
-          <p>Welcome to Oregon traveler!! It was a long journey but you made it!!</p>
-        </div>
+        <nav className="game-over" align="center">
+          <p>YOU MADE IT!!</p>
+          <p>Welcome to Oregon traveler!!</p>
+          <button onClick={() => window.location.reload()}>Play Again</button>
+        </nav>
       </nav>
     </main>
   );
