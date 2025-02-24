@@ -17,7 +17,7 @@ export function Scores() {
         <tr key={i}>
           <td>{i+1}</td>
           <td>{score.name.split('@')[0]}</td>
-          <td>{score.score}</td>
+          <td>{score.score}%</td>
           <td>{score.date}</td>
         </tr>
       );
