@@ -53,7 +53,7 @@ export function GamePlay({ game }) {
 
   useEffect(() => {
     if (gameState === 'animation') {
-      const timer = setTimeout(() => setGameState('event'), 3000);
+      const timer = setTimeout(() => setGameState('event'), 2000);
       return () => clearTimeout(timer);
     } else if (gameState === 'event' && (game.getGameOver() || game.getGameWon())) {
       setGameState(game.getGameOver() ? 'gameOver' : 'gameWon');
@@ -63,14 +63,27 @@ export function GamePlay({ game }) {
   const handleNext = () => {
     if (gameState === 'welcome') setGameState('animation');
     else if (gameState === 'event') setGameState('animation');
-    {game.updateGameState()}
+    game.updateGameState()
     if (game.getGameOver()) setGameState('gameOver');
     else if (game.getGameWon()) setGameState('gameWon');
   };
 
+  const handleHuntingYes = () => {
+    var foodGot = Math.floor(Math.random() * 10) + 1;
+    game.addAndSubtractFood(foodGot, 'add');
+    game.setHunting(false);
+    handleNext();
+  };
+  
+  const handleHuntingNo = () => {
+    game.subtrackMiles(100, 'subtract');
+    game.setHunting(false);
+    handleNext();
+  };
+
   if (gameState === 'welcome') return <Welcome game={game} onNext={handleNext} />;
   if (gameState === 'animation') return <Animation game={game} />;
-  if (gameState === 'event') return <Event game={game} onNext={handleNext} />;
+  if (gameState === 'event') return <Event game={game} onNext={handleNext} handleHuntingYes={handleHuntingYes} handleHuntingNo={handleHuntingNo} />;
   if (gameState === 'gameOver') return <GameOver game={game} />;
   if (gameState === 'gameWon') return <GameWon game={game} />;
   return null;
@@ -121,9 +134,11 @@ function Animation({ game }) {
   );
 }
 
-function Event({ game, onNext }) {
-  return (
-    <main className="container-fluid bg-secondary text-center">
+function Event({ game, onNext, handleHuntingYes, handleHuntingNo }) {
+  {game.dailyUpdates()}
+  {game.events()}
+  if (game.getHunting()) {
+    return (<main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
         <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
         <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
@@ -137,15 +152,39 @@ function Event({ game, onNext }) {
         <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
         <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
         <div className="text-box-game-output" align="center">
-          {game.events()}
-          {game.dailyUpdates()}
           <p>Day {game.getDay()}:</p>
           <p>{game.getMessage()}</p>
-          <button onClick={onNext}>Next</button>
+          <button onClick={handleHuntingYes}>Yes</button>
+          <button onClick={handleHuntingNo}>No</button>
         </div>
       </nav>
     </main>
-  );
+    );
+  }
+  else {
+    return (
+      <main className="container-fluid bg-secondary text-center">
+        <nav className="game-box" align="center">
+          <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+          <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
+          <div className="wagon-image-position" align="center">
+            <img src="/wagon.jpg" className="still" alt="wagon" />
+          </div>
+          <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+          <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
+          <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
+          <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+          <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+          <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
+          <div className="text-box-game-output" align="center">
+            <p>Day {game.getDay()}:</p>
+            <p>{game.getMessage()}</p>
+            <button onClick={onNext}>Next</button>
+          </div>
+        </nav>
+      </main>
+    );
+  }
 }
 
 function GameOver({ game }) {
