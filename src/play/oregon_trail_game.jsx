@@ -15,6 +15,11 @@ export class OregonTrailGame {
         this.hunting = false;
         this.fishing = false;
         this.collectWater = false;
+        this.userName = userName;
+    }
+
+    getUserName() {
+        return this.userName;
     }
 
     getHunting() {

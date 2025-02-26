@@ -214,3 +214,16 @@
     left: 275px;
     width: 200px;
 }
+
+.web-socket-box {
+    border: 5px solid greenyellow;
+    padding: 5px;         
+    width: 250px; 
+    height: 350px; 
+    position: absolute;          
+    background-color: black;
+    border-radius: 8px;   
+    font-family: Arial, sans-serif;
+    transform: translate(-175%, 25%);
+    opacity: .8;
+}

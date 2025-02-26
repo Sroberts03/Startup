@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './start_game.css';
 import { OregonTrailGame } from './oregon_trail_game.jsx';
+import { GameEvent, GameSimulator } from './gameNotifier';
 
-export function StartGame({userName}) {
+export function StartGame({ userName }) {
   const [startGame, setStartGame] = useState(false);
   const [gameInstance, setGameInstance] = useState(null);
+  const [recentEvents, setRecentEvents] = useState([]);
+
+  // Add event listener for simulator events
+  useEffect(() => {
+    const handleGameEvent = (event) => {
+      let message;
+      if (event.type === GameEvent.Start) {
+        message = `${event.from} started their journey!`;
+      } else if (event.type === GameEvent.End) {
+        message = `${event.from} ended their journey at ${event.value.score}%${event.value.won ? ' - Made it to Oregon!' : ''}`;
+      }
+      setRecentEvents((prev) => [message, ...prev.slice(0, 4)]); // Keep last 5 events
+    };
+
+    GameSimulator.addHandler(handleGameEvent);
+
+    // Cleanup on component unmount
+    return () => GameSimulator.removeHandler(handleGameEvent);
+  }, []);
 
   const handleStartClick = () => {
     const game = new OregonTrailGame(userName);
     setGameInstance(game);
     setStartGame(true);
+    GameSimulator.broadcastEvent(userName, GameEvent.Start, {});
   };
 
   if (startGame && gameInstance) {
@@ -38,9 +59,21 @@ export function StartGame({userName}) {
           <p>First Aid: 1</p>
         </div>
         <div className="text-box-game-output-start" align="center">
-          <p>You have died of dysentery</p>
+          <p>Welcome to the Oregon Trail!</p>
         </div>
       </nav>
+      <div className= 'web-socket-box'>
+            <h3>Recent Events:</h3>
+            {recentEvents.length > 0 ? (
+              <ul>
+                {recentEvents.map((event, index) => (
+                  <li key={index}>{event}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>No recent events yet.</p>
+            )}
+        </div>
       <button className="start-button" onClick={handleStartClick}>
         Start Game
       </button>
@@ -66,7 +99,7 @@ export function GamePlay({ game }) {
     else if (gameState === 'hunting') setGameState('animation');
     else if (gameState === 'fishing') setGameState('animation');
     else if (gameState === 'event') setGameState('animation');
-    game.updateGameState()
+    game.updateGameState();
     if (game.getGameOver()) setGameState('gameOver');
     else if (game.getGameWon()) setGameState('gameWon');
   };
@@ -78,19 +111,17 @@ export function GamePlay({ game }) {
     if (game.getHunting()) {
       game.setHunting(false);
       setGameState('hunting');
-    }
-    else if (game.getFishing()) {
+    } else if (game.getFishing()) {
       game.setFishing(false);
       setGameState('fishing');
     }
   };
-  
+
   const handleHuntingNo = () => {
     game.subtrackMiles(100, 'subtract');
     if (game.getHunting()) {
       game.setHunting(false);
-    }
-    else if (game.getFishing()) {
+    } else if (game.getFishing()) {
       game.setFishing(false);
     }
     handleNext();
@@ -100,23 +131,31 @@ export function GamePlay({ game }) {
     game.addAndSubWater(5, 'add');
     game.setCollectWater(false);
     handleNext();
-  }
+  };
 
   const handleWaterNo = () => {
     game.subtrackMiles(100, 'subtract');
     game.setCollectWater(false);
     handleNext();
-  }
+  };
 
   if (gameState === 'welcome') return <Welcome game={game} onNext={handleNext} />;
   if (gameState === 'animation') return <Animation game={game} />;
-  if (gameState === 'event') return <Event game={game} onNext={handleNext} handleHuntingYes={handleHuntingYes} 
-                                    handleHuntingNo={handleHuntingNo} handleWaterYes={handleWaterYes} 
-                                    handleWaterNo={handleWaterNo}/>;
+  if (gameState === 'event')
+    return (
+      <Event
+        game={game}
+        onNext={handleNext}
+        handleHuntingYes={handleHuntingYes}
+        handleHuntingNo={handleHuntingNo}
+        handleWaterYes={handleWaterYes}
+        handleWaterNo={handleWaterNo}
+      />
+    );
   if (gameState === 'gameOver') return <GameOver game={game} />;
   if (gameState === 'gameWon') return <GameWon game={game} />;
-  if (gameState === 'hunting') return (<AfterHunting game={game} onNext={handleNext} foodGot={foodGot} />);
-  if (gameState === 'fishing') return (<AfterFishing game={game} onNext={handleNext} foodGot={foodGot} />);
+  if (gameState === 'hunting') return <AfterHunting game={game} onNext={handleNext} foodGot={foodGot} />;
+  if (gameState === 'fishing') return <AfterFishing game={game} onNext={handleNext} foodGot={foodGot} />;
   return null;
 }
 
@@ -245,6 +284,12 @@ function Event({ game, onNext, handleHuntingYes, handleHuntingNo, handleWaterYes
 function GameOver({ game }) {
   useEffect(() => {
     saveScore(game.getPercent(), game.getUserName());
+    GameSimulator.broadcastEvent(userName, GameEvent.End, {
+      name: game.getUserName(),
+      score: game.getPercent(),
+      date: new Date().toLocaleDateString(),
+      won: false,
+    });
   }, [game]);
   return (
     <main className="container-fluid bg-secondary text-center">
@@ -262,6 +307,12 @@ function GameOver({ game }) {
 function GameWon({ game }) {
   useEffect(() => {
     saveScore(game.getPercent(), game.getUserName());
+    GameSimulator.broadcastEvent(userName, GameEvent.End, {
+      name: game.getUserName(),
+      score: game.getPercent(),
+      date: new Date().toLocaleDateString(),
+      won: true,
+    });
   }, [game]);
   return (
     <main className="container-fluid bg-secondary text-center">
