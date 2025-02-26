@@ -1,4 +1,3 @@
- // gameNotifierSimulator.js
 const GameEvent = {
     System: 'system',
     End: 'gameEnd',
@@ -19,9 +18,9 @@ const GameEvent = {
   
       setInterval(() => {
         const randomPlayer = `Traveler${Math.floor(Math.random() * 100)}`;
-        const percent = Math.floor(Math.random() * 100); // Random completion percentage
+        const percent = Math.floor(Math.random() * 100);
         const date = new Date().toLocaleDateString();
-        const won = percent === 100; // Consider 100% as a win
+        const won = percent === 100;
         this.broadcastEvent(randomPlayer, GameEvent.End, {
           name: randomPlayer,
           score: percent,

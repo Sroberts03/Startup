@@ -8,7 +8,6 @@ export function StartGame({ userName }) {
   const [gameInstance, setGameInstance] = useState(null);
   const [recentEvents, setRecentEvents] = useState([]);
 
-  // Add event listener for simulator events
   useEffect(() => {
     const handleGameEvent = (event) => {
       let message;
@@ -95,6 +94,8 @@ export function GamePlay({ game }) {
   }, [gameState, game]);
 
   const handleNext = () => {
+    {game.dailyUpdates()}
+    {game.events()}
     if (gameState === 'welcome') setGameState('animation');
     else if (gameState === 'hunting') setGameState('animation');
     else if (gameState === 'fishing') setGameState('animation');
@@ -205,8 +206,6 @@ function Animation({ game }) {
 }
 
 function Event({ game, onNext, handleHuntingYes, handleHuntingNo, handleWaterYes, handleWaterNo }) {
-  {game.dailyUpdates()}
-  {game.events()}
   if (game.getCollectWater()) {
     return (<main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
@@ -284,7 +283,7 @@ function Event({ game, onNext, handleHuntingYes, handleHuntingNo, handleWaterYes
 function GameOver({ game }) {
   useEffect(() => {
     saveScore(game.getPercent(), game.getUserName());
-    GameSimulator.broadcastEvent(userName, GameEvent.End, {
+    GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
       score: game.getPercent(),
       date: new Date().toLocaleDateString(),
@@ -307,7 +306,7 @@ function GameOver({ game }) {
 function GameWon({ game }) {
   useEffect(() => {
     saveScore(game.getPercent(), game.getUserName());
-    GameSimulator.broadcastEvent(userName, GameEvent.End, {
+    GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
       score: game.getPercent(),
       date: new Date().toLocaleDateString(),

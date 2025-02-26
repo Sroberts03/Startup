@@ -279,8 +279,8 @@ export class OregonTrailGame {
         else if (randomEvent == 11 && this.getMilesTraveledSinceLastTown() >= 300) {
             this.message = "You made it to a town. You have gained full stats, and traveled 100 miles.";
             this.subtrackMiles(100);
-            this.setLife(20);
-            this.setWater(25);
+            this.setLife(15);
+            this.setWater(15);
             this.setFood(50);
             this.setFirstAid(5);
             this.setMilesTraveledSinceLastTown(0);
