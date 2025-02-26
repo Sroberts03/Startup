@@ -74,3 +74,4 @@ for this deliverable I did the following:
 [x] Scores are actually interactive
 [x] Login page functioning properly
 [x] play game working
+[x] web socket simulation
