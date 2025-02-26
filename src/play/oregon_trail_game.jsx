@@ -1,9 +1,9 @@
 export class OregonTrailGame {
     constructor(userName) {
-        this.life = 20;
+        this.life = 15;
         this.miles_left = 2170;
         this.percent = 0;
-        this.water = 25;
+        this.water = 15;
         this.food = 50;
         this.first_aid = 5;
         this.game_over = false;
@@ -171,8 +171,8 @@ export class OregonTrailGame {
     addAndSubWater(water, condition, dailyUpdates = false) {
         if (condition == 'add') {
             this.water += water;
-            if (this.water > 20) {
-                this.water = 25;
+            if (this.water > 15) {
+                this.water = 15;
             }
         }
         if (condition == 'subtract') {
@@ -189,8 +189,8 @@ export class OregonTrailGame {
     addAndSubLife(life, condition) {
         if (condition == 'add') {
             this.life += life;
-            if (this.life > 10) {
-                this.life = 20;
+            if (this.life > 15) {
+                this.life = 15;
             }
         }
         if (condition == 'subtract') {
@@ -204,8 +204,8 @@ export class OregonTrailGame {
     addAndSubFistAid(first_aid, condition) {
         if (condition == 'add') {
             this.first_aid += first_aid;
-            if (this.first_aid > 10) {
-                this.first_aid = 10;
+            if (this.first_aid > 5) {
+                this.first_aid = 5;
             }
         }
         if (condition == 'subtract') {
@@ -223,56 +223,55 @@ export class OregonTrailGame {
             this.message = "Normal day of travel. 100 miles closer.";
             this.subtrackMiles(100);
         } 
-        if (randomEvent == 2 || randomEvent == 13) {
+        else if (randomEvent == 2 || randomEvent == 13) {
             this.message = "You have lost 1 life and only travled 50 miles due to a broken leg";
             this.addAndSubLife(1, 'subtract');
             this.subtrackMiles(50);
         }
-        if (randomEvent == 3 && this.percent > 50) {
+        else if (randomEvent == 3 && this.percent > 50) {
             this.message = "You have died of dysentery";
             this.life = 0;
         }
-        if (randomEvent == 3 && this.getFirstAid() == 0) {
+        else if (randomEvent == 3 && this.getFirstAid() == 0) {
             this.message = "You have lost 1 life due to diesease.";
             this.addAndSubLife(1, 'subtract');
         }
-        if (randomEvent == 3 && this.getFirstAid() > 0) {
+        else if (randomEvent == 3 && this.getFirstAid() > 0) {
             this.message = "You got sick but luckily you had a fisrt aid kit. You have used 1 first aid kit but stayed healthy.";
             this.addAndSubFistAid(1, 'subtract');
         }
-        if (randomEvent == 4 || randomEvent == 14) {
+        else if (randomEvent == 4 || randomEvent == 14) {
             this.hunting = true;
             this.message = "You have found a Hunting Ground. Would you like to stop and hunt?";
         }
-        if (randomEvent == 5) {
-            this.message = "You have found a river with fish. You have gained 5 food, and traveled 25 miles.";
-            this.addAndSubtractFood(5, 'add');
-            this.subtrackMiles(25);
+        else if (randomEvent == 5) {
+            this.fishing = true;
+            this.message = "You have found a river with fish. Would you like to stop and fish?";
         }
-        if (randomEvent == 6 || randomEvent == 15) {
+        else if (randomEvent == 6 || randomEvent == 15) {
             this.collectWater = true;
             this.message = "You have found clean water. would you like to collect water?";
         }
-        if (randomEvent == 7) {
+        else if (randomEvent == 7) {
             this.message = "Broken wagon wheel. You made no progress today.";
         }
-        if (randomEvent == 8) {
+        else if (randomEvent == 8) {
             this.message = "Bandit attack. You have lost 1 life and 10 food.";
             this.addAndSubLife(1, 'subtract');
             this.addAndSubtractFood(10, 'subtract');
         }
-        if (randomEvent == 9) {
+        else if (randomEvent == 9) {
             this.message = "You have found a traveling tradesman. You have gained 1 first aid kit, and traveled 50 miles.";
             this.addAndSubLife(1, 'add');
             this.subtrackMiles(50);
             this.addAndSubFistAid(1, 'add');
         }
-        if (randomEvent == 10) {
+        else if (randomEvent == 10) {
             this.message = "You really pushed yourself today. You have lost 1 life, but traveled 150 miles.";
             this.addAndSubLife(1, 'subtract');
             this.subtrackMiles(150);
         }
-        if (randomEvent == 11 && this.getMilesTraveledSinceLastTown() >= 300) {
+        else if (randomEvent == 11 && this.getMilesTraveledSinceLastTown() >= 300) {
             this.message = "You made it to a town. You have gained full stats, and traveled 100 miles.";
             this.subtrackMiles(100);
             this.setLife(20);
@@ -281,7 +280,7 @@ export class OregonTrailGame {
             this.setFirstAid(5);
             this.setMilesTraveledSinceLastTown(0);
         }
-        if (randomEvent == 11 && this.getMilesTraveledSinceLastTown() < 300) {
+        else if (randomEvent == 11 && this.getMilesTraveledSinceLastTown() < 300) {
             this.message = "You found another ox!! You traveled 200 miles but the ox is too tired to continue.";
             this.subtrackMiles(200);
         }

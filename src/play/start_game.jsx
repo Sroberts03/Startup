@@ -50,6 +50,7 @@ export function StartGame({userName}) {
 
 export function GamePlay({ game }) {
   const [gameState, setGameState] = useState('welcome');
+  const [foodGot, setFoodGot] = useState(0);
 
   useEffect(() => {
     if (gameState === 'animation') {
@@ -62,6 +63,8 @@ export function GamePlay({ game }) {
 
   const handleNext = () => {
     if (gameState === 'welcome') setGameState('animation');
+    else if (gameState === 'hunting') setGameState('animation');
+    else if (gameState === 'fishing') setGameState('animation');
     else if (gameState === 'event') setGameState('animation');
     game.updateGameState()
     if (game.getGameOver()) setGameState('gameOver');
@@ -69,23 +72,51 @@ export function GamePlay({ game }) {
   };
 
   const handleHuntingYes = () => {
-    var foodGot = Math.floor(Math.random() * 10) + 1;
-    game.addAndSubtractFood(foodGot, 'add');
-    game.setHunting(false);
-    handleNext();
+    var food = Math.floor(Math.random() * 10) + 1;
+    setFoodGot(food);
+    game.addAndSubtractFood(food, 'add');
+    if (game.getHunting()) {
+      game.setHunting(false);
+      setGameState('hunting');
+    }
+    else if (game.getFishing()) {
+      game.setFishing(false);
+      setGameState('fishing');
+    }
   };
   
   const handleHuntingNo = () => {
     game.subtrackMiles(100, 'subtract');
-    game.setHunting(false);
+    if (game.getHunting()) {
+      game.setHunting(false);
+    }
+    else if (game.getFishing()) {
+      game.setFishing(false);
+    }
     handleNext();
   };
 
+  const handleWaterYes = () => {
+    game.addAndSubWater(5, 'add');
+    game.setCollectWater(false);
+    handleNext();
+  }
+
+  const handleWaterNo = () => {
+    game.subtrackMiles(100, 'subtract');
+    game.setCollectWater(false);
+    handleNext();
+  }
+
   if (gameState === 'welcome') return <Welcome game={game} onNext={handleNext} />;
   if (gameState === 'animation') return <Animation game={game} />;
-  if (gameState === 'event') return <Event game={game} onNext={handleNext} handleHuntingYes={handleHuntingYes} handleHuntingNo={handleHuntingNo} />;
+  if (gameState === 'event') return <Event game={game} onNext={handleNext} handleHuntingYes={handleHuntingYes} 
+                                    handleHuntingNo={handleHuntingNo} handleWaterYes={handleWaterYes} 
+                                    handleWaterNo={handleWaterNo}/>;
   if (gameState === 'gameOver') return <GameOver game={game} />;
   if (gameState === 'gameWon') return <GameWon game={game} />;
+  if (gameState === 'hunting') return (<AfterHunting game={game} onNext={handleNext} foodGot={foodGot} />);
+  if (gameState === 'fishing') return (<AfterFishing game={game} onNext={handleNext} foodGot={foodGot} />);
   return null;
 }
 
@@ -134,10 +165,34 @@ function Animation({ game }) {
   );
 }
 
-function Event({ game, onNext, handleHuntingYes, handleHuntingNo }) {
+function Event({ game, onNext, handleHuntingYes, handleHuntingNo, handleWaterYes, handleWaterNo }) {
   {game.dailyUpdates()}
   {game.events()}
-  if (game.getHunting()) {
+  if (game.getCollectWater()) {
+    return (<main className="container-fluid bg-secondary text-center">
+      <nav className="game-box" align="center">
+        <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
+        <div className="wagon-image-position" align="center">
+          <img src="/wagon.jpg" className="still" alt="wagon" />
+        </div>
+        <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+        <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
+        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
+        <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+        <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+        <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
+        <div className="text-box-game-output" align="center">
+          <p>Day {game.getDay()}:</p>
+          <p>{game.getMessage()}</p>
+          <button onClick={handleWaterYes}>Yes</button>
+          <button onClick={handleWaterNo}>No</button>
+        </div>
+      </nav>
+    </main>
+    );
+  }
+  if (game.getHunting() || game.getFishing()) {
     return (<main className="container-fluid bg-secondary text-center">
       <nav className="game-box" align="center">
         <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
@@ -213,9 +268,59 @@ function GameWon({ game }) {
       <nav className="game-box" align="center">
         <nav className="game-over" align="center">
           <p>YOU MADE IT!!</p>
-          <p>Welcome to Oregon traveler!!</p>
+          <p>Welcome to Oregon, traveler!!</p>
           <button onClick={() => window.location.reload()}>Play Again</button>
         </nav>
+      </nav>
+    </main>
+  );
+}
+
+function AfterHunting({game, onNext, foodGot}) {
+  return (
+    <main className="container-fluid bg-secondary text-center">
+      <nav className="game-box" align="center">
+        <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
+        <div className="wagon-image-position" align="center">
+          <img src="/wagon.jpg" className="still" alt="wagon" />
+        </div>
+        <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+        <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
+        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
+        <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+        <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+        <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
+        <div className="text-box-game-output" align="center">
+          <p>Day {game.getDay()}:</p>
+          <p>After a long day of hunting you got {foodGot} food. Good work!</p>
+          <button onClick={onNext}>Next</button>
+        </div>
+      </nav>
+    </main>
+  );
+}
+
+function AfterFishing({game, onNext, foodGot}) {
+  return (
+    <main className="container-fluid bg-secondary text-center">
+      <nav className="game-box" align="center">
+        <div><img src="/cloud.jpg" className="still-cloud-one" alt="cloud" /></div>
+        <div><img src="/cloud.jpg" className="still-cloud-three" alt="cloud" /></div>
+        <div className="wagon-image-position" align="center">
+          <img src="/wagon.jpg" className="still" alt="wagon" />
+        </div>
+        <div className="text-box-player-conditions-left" align="center">Life: {game.getLife()}</div>
+        <div className="text-box-player-conditions-left" align="center">Miles: {game.getMilesLeft()}</div>
+        <div className="text-box-player-conditions-left" align="center">{game.getPercent()}%</div>
+        <div className="text-box-player-conditions-right" align="center">Water: {game.getWater()}</div>
+        <div className="text-box-player-conditions-right" align="center">Food: {game.getFood()}</div>
+        <div className="text-box-player-conditions-right" align="center">Fist Aid: {game.getFirstAid()}</div>
+        <div className="text-box-game-output" align="center">
+          <p>Day {game.getDay()}:</p>
+          <p>After a long day of fishing you got {foodGot} fish. Good work!</p>
+          <button onClick={onNext}>Next</button>
+        </div>
       </nav>
     </main>
   );
