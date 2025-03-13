@@ -11,7 +11,7 @@ export function About() {
       </p>
 
       <p className="text-box">
-        The name Oregon Trail is a registered trademark of Houghton Mifflin Harcourt. 
+        The name Oregon Trail was originally created and published by MECC. 
         The use of the name and the game is for non-profit educational use only. 
         No part of this code or application may be used outside of that definition.
       </p>

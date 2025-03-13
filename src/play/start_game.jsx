@@ -281,8 +281,8 @@ function Event({ game, onNext, handleHuntingYes, handleHuntingNo, handleWaterYes
 }
 
 function GameOver({ game }) {
+  saveScore(game.getPercent(), game.getUserName());
   useEffect(() => {
-    saveScore(game.getPercent(), game.getUserName());
     GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
       score: game.getPercent(),
@@ -304,8 +304,8 @@ function GameOver({ game }) {
 }
 
 function GameWon({ game }) {
+  saveScore(game.getPercent(), game.getUserName());
   useEffect(() => {
-    saveScore(game.getPercent(), game.getUserName());
     GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
       score: game.getPercent(),

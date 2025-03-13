@@ -62,6 +62,40 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
+apiRouter.get('/scores', verifyAuth, (req, res) => {
+    res.send(scores);
+});
+
+apiRouter.post('/scores', verifyAuth, (req, res) => {
+    scores = updateScores(req.body);
+    res.send(scores);
+});
+
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+});
+
+function updateScores(newScore) {
+    let found = false;
+  for (const [i, prevScore] of scores.entries()) {
+    if (newScore.score > prevScore.score) {
+      scores.splice(i, 0, newScore);
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    scores.push(newScore);
+  }
+
+  if (scores.length > 10) {
+    scores.length = 10;
+  }
+
+  return scores;
+}
+
 async function createUser(email, password) {
     const passwordHash = await bcrypt.hash(password, 10);
     
@@ -87,44 +121,6 @@ function setAuthCookie(res, token) {
         secure: true,
         sameSite: 'strict',
     });
-}
-
-app.use(function (err, req, res, next) {
-    res.status(500).send({ type: err.name, message: err.message });
-});
-
-app.use((_req, res) => {
-    res.sendFile('index.html', { root: 'public' });
-});
-
-apiRouter.get('/socres', verifyAuth, (req, res) => {
-    res.send(scores);
-});
-
-apiRouter.post('/socres', verifyAuth, (req, res) => {
-    scores = updateScores(req.body);
-    res.send(scores);
-});
-
-function updateScores(newScore) {
-    let found = false;
-  for (const [i, prevScore] of scores.entries()) {
-    if (newScore.score > prevScore.score) {
-      scores.splice(i, 0, newScore);
-      found = true;
-      break;
-    }
-  }
-
-  if (!found) {
-    scores.push(newScore);
-  }
-
-  if (scores.length > 10) {
-    scores.length = 10;
-  }
-
-  return scores;
 }
 
 

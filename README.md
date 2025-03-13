@@ -75,3 +75,9 @@ for this deliverable I did the following:
 [x] Login page functioning properly
 [x] play game working
 [x] web socket simulation
+
+##Services
+
+for this deliverable I did the following
+[x] user service, including login,register, and logout
+[x] score services

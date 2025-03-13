@@ -18,10 +18,6 @@ export class OregonTrailGame {
         this.userName = userName;
     }
 
-    getUserName() {
-        return this.userName;
-    }
-
     getHunting() {
         return this.hunting;
     }
