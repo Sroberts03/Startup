@@ -4,12 +4,13 @@ export function Scores() {
   const [scores, setScores] = React.useState([]);
   
   React.useEffect(() => {
-    const scoresText = localStorage.getItem('scores');
-    if (scoresText) {
-      setScores(JSON.parse(scoresText));
-    }
+    fetch('/api/scores')
+      .then((response) => response.json())
+      .then((scores) => {
+        setScores(scores);
+      });
   }, []);
-
+  
   const scoreRows = [];
   if (scores.length) {
     for (const [i, score] of scores.entries()) {

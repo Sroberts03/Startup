@@ -376,33 +376,13 @@ function AfterFishing({game, onNext, foodGot}) {
   );
 }
 
-function updateScoresLocal(newScore) {
-  try {
-    const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
-    existingScores.push(newScore);
-    const sortedScores = existingScores
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 10);
-    localStorage.setItem('scores', JSON.stringify(sortedScores));
-  } catch (error) {
-    console.error('Failed to save score locally:', error);
-  }
-}
-
 async function saveScore(score, userName) {
   const date = new Date().toLocaleDateString();
-  const newScore = { 
-    name: userName, 
-    score: score, 
-    date: date
-  };
+  const newScore = { name: userName, score: score, date: date };
 
-  try {
-    updateScoresLocal(newScore);
-    return true;
-
-  } catch (error) {
-    console.error('Error saving score:', error);
-    return false;
-  }
+  await fetch('/api/score', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(newScore),
+  });
 }
