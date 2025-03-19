@@ -3,11 +3,9 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
-
-let users = [];
-let scores = [];
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -36,6 +34,7 @@ apiRouter.post('/login', async (req, res) => {
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
         user.token = uuid.v4();
+        await DB.updateUser(user);
         setAuthCookie(res, user.token);
         res.send({ email: user.email });
         return;
@@ -48,6 +47,7 @@ apiRouter.delete('/logout', async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
         delete user.token;
+        DB.updateUser(user);
     }
     res.clearCookie(authCookieName);
     res.status(204).end();
@@ -62,7 +62,8 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
-apiRouter.get('/scores', verifyAuth, (req, res) => {
+apiRouter.get('/scores', verifyAuth, async (req, res) => {
+    await DB.getHighScores();
     res.send(scores);
 });
 
@@ -76,13 +77,8 @@ app.use((_req, res) => {
 });
 
 function updateScores(newScore) {
-    let found = false;
-  for (const [i, prevScore] of scores.entries()) {
-    if (newScore.score > prevScore.score) {
-      scores.splice(i, 0, newScore);
-      found = true;
-      break;
-    }
+    await DB.addScore(newScore);
+    return DB.getHighScores();
   }
 
   if (!found) {
@@ -104,7 +100,7 @@ async function createUser(email, password) {
         password: passwordHash,
         token: uuid.v4(),
     };
-    users.push(user);
+    await DB.addUser(user);
     
     return user;
 }
@@ -112,8 +108,11 @@ async function createUser(email, password) {
 async function findUser(field, value) {
     if (!value) return null;
   
-    return users.find((u) => u[field] === value);
-}
+    if (field === 'token') {
+      return DB.getUserByToken(value);
+    }
+    return DB.getUser(value);
+  }
 
 function setAuthCookie(res, token) {
     res.cookie(authCookieName, token, {
@@ -124,6 +123,6 @@ function setAuthCookie(res, token) {
 }
 
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
-});
+  });
