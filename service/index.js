@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 app.use(express.static('public'));
 
-var apiRouter = express.Router();
+const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 apiRouter.post('/register', async (req, res) => {
@@ -63,7 +63,7 @@ const verifyAuth = async (req, res, next) => {
 };
 
 apiRouter.get('/scores', verifyAuth, async (req, res) => {
-    await DB.getHighScores();
+    const scores = await DB.getHighScores();
     res.send(scores);
 });
 
@@ -76,21 +76,10 @@ app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
-function updateScores(newScore) {
+async function updateScores(newScore) {
     await DB.addScore(newScore);
     return DB.getHighScores();
   }
-
-  if (!found) {
-    scores.push(newScore);
-  }
-
-  if (scores.length > 10) {
-    scores.length = 10;
-  }
-
-  return scores;
-}
 
 async function createUser(email, password) {
     const passwordHash = await bcrypt.hash(password, 10);

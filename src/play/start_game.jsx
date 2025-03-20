@@ -281,7 +281,9 @@ function Event({ game, onNext, handleHuntingYes, handleHuntingNo, handleWaterYes
 }
 
 function GameOver({ game }) {
-  saveScore(game.getPercent(), game.getUserName());
+  useEffect(() => {
+    saveScore(game.getPercent(), game.getUserName());
+  }, [game]);
   useEffect(() => {
     GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
@@ -304,7 +306,9 @@ function GameOver({ game }) {
 }
 
 function GameWon({ game }) {
-  saveScore(game.getPercent(), game.getUserName());
+  useEffect(() => {
+    saveScore(game.getPercent(), game.getUserName());
+  }, [game]);
   useEffect(() => {
     GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
@@ -380,7 +384,7 @@ async function saveScore(score, userName) {
   const date = new Date().toLocaleDateString();
   const newScore = { name: userName, score: score, date: date };
 
-  await fetch('/api/score', {
+  await fetch('/api/scores', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(newScore),

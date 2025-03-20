@@ -4,10 +4,22 @@ export function Scores() {
   const [scores, setScores] = React.useState([]);
   
   React.useEffect(() => {
-    fetch('/api/scores')
-      .then((response) => response.json())
+    fetch('/api/scores', {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((scores) => {
+        console.log('Fetched scores:', scores);
         setScores(scores);
+      })
+      .catch((error) => {
+        console.error('Error fetching scores:', error.message, error.stack);
       });
   }, []);
   
