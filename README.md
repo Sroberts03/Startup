@@ -81,3 +81,8 @@ for this deliverable I did the following:
 for this deliverable I did the following
 [x] user service, including login,register, and logout
 [x] score services
+
+##DB
+
+for this delivarable I did the following
+[x] added mongoDB service support
