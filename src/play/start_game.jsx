@@ -298,6 +298,7 @@ function GameOver({ game }) {
         <nav className="game-over" align="center">
           <p>GAME OVER!!</p>
           <p>You didn't make it to Oregon! Better luck next time!!</p>
+          <p>{game.getCauseOfDeath()}</p>
           <button onClick={() => window.location.reload()}>Restart</button>
         </nav>
       </nav>

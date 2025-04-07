@@ -16,6 +16,15 @@ export class OregonTrailGame {
         this.fishing = false;
         this.collectWater = false;
         this.userName = userName;
+        this.causeOfDeath = '';
+    }
+
+    getCauseOfDeath() {
+        return this.causeOfDeath;
+    }
+
+    setCauseOfDeath(causeOfDeath) {
+        this.causeOfDeath = causeOfDeath;
     }
 
     getHunting() {
@@ -199,6 +208,10 @@ export class OregonTrailGame {
             if (this.life < 0) {
                 this.life = 0;
             }
+            if (this.life == 0 ) {
+                this.causeOfDeath = "You have died from the hardships of the trail.";
+            }
+
         }
     }
 
@@ -231,6 +244,7 @@ export class OregonTrailGame {
         }
         else if (randomEvent == 3 && this.percent > 50) {
             this.message = "You have died of dysentery";
+            this.setCauseOfDeath("dysentery");
             this.life = 0;
         }
         else if (randomEvent == 3 && this.getFirstAid() == 0) {
