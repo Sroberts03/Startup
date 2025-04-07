@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './start_game.css';
 import { OregonTrailGame } from './oregon_trail_game.jsx';
-import { GameEvent, GameSimulator } from './gameNotifier';
-import { GameNotifier } from './gameNotifier copy.js';
+import { GameEvent, GameNotifier} from './gameNotifier copy.js';
 
 export function StartGame({ userName }) {
   const [startGame, setStartGame] = useState(false);
   const [gameInstance, setGameInstance] = useState(null);
-  const [recentEvents, setRecentEvents] = useState([]);
 
   useEffect(() => {
     const handleGameEvent = (event) => {
@@ -17,13 +15,11 @@ export function StartGame({ userName }) {
       } else if (event.type === GameEvent.End) {
         message = `${event.from} ended their journey at ${event.value.score}%${event.value.won ? ' - Made it to Oregon!' : ''}`;
       }
-      setRecentEvents((prev) => [message, ...prev.slice(0, 4)]); // Keep last 5 events
     };
 
-    GameSimulator.addHandler(handleGameEvent);
+    GameNotifier.addHandler(handleGameEvent);
 
-    // Cleanup on component unmount
-    return () => GameSimulator.removeHandler(handleGameEvent);
+    return () => GameNotifier.removeHandler(handleGameEvent);
   }, []);
 
   const handleStartClick = () => {
@@ -64,15 +60,6 @@ export function StartGame({ userName }) {
       </nav>
       <div className= 'web-socket-box'>
             <h3>Recent Events:</h3>
-            {recentEvents.length > 0 ? (
-              <ul>
-                {recentEvents.map((event, index) => (
-                  <li key={index}>{event}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No recent events yet.</p>
-            )}
         </div>
       <button className="start-button" onClick={handleStartClick}>
         Start Game
