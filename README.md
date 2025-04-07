@@ -86,3 +86,8 @@ for this deliverable I did the following
 
 for this delivarable I did the following
 [x] added mongoDB service support
+
+##WebSocket
+
+for this delivarable I did the following
+[x] added web socket to allow users to see when other players join
