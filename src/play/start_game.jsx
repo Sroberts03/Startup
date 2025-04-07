@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './start_game.css';
 import { OregonTrailGame } from './oregon_trail_game.jsx';
 import { GameEvent, GameSimulator } from './gameNotifier';
+import { GameNotifier } from './gameNotifier copy.js';
 
 export function StartGame({ userName }) {
   const [startGame, setStartGame] = useState(false);
@@ -29,7 +30,7 @@ export function StartGame({ userName }) {
     const game = new OregonTrailGame(userName);
     setGameInstance(game);
     setStartGame(true);
-    GameSimulator.broadcastEvent(userName, GameEvent.Start, {});
+    GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
   };
 
   if (startGame && gameInstance) {
@@ -285,7 +286,7 @@ function GameOver({ game }) {
     saveScore(game.getPercent(), game.getUserName());
   }, [game]);
   useEffect(() => {
-    GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
+    GameNotifier.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
       score: game.getPercent(),
       date: new Date().toLocaleDateString(),
@@ -311,7 +312,7 @@ function GameWon({ game }) {
     saveScore(game.getPercent(), game.getUserName());
   }, [game]);
   useEffect(() => {
-    GameSimulator.broadcastEvent(game.getUserName(), GameEvent.End, {
+    GameNotifier.broadcastEvent(game.getUserName(), GameEvent.End, {
       name: game.getUserName(),
       score: game.getPercent(),
       date: new Date().toLocaleDateString(),
