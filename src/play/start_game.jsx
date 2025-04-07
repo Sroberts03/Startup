@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './start_game.css';
 import { OregonTrailGame } from './oregon_trail_game.jsx';
-import { GameEvent, GameNotifier} from './gameNotifier copy.js';
+import { GameEvent, GameNotifier } from './gameNotifier copy.js';
 
 export function StartGame({ userName }) {
   const [startGame, setStartGame] = useState(false);
   const [gameInstance, setGameInstance] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState('Connecting...');
+  const [events, setEvents] = useState([]); // New state to track events
 
   useEffect(() => {
     const handleGameEvent = (event) => {
@@ -15,11 +17,20 @@ export function StartGame({ userName }) {
       } else if (event.type === GameEvent.End) {
         message = `${event.from} ended their journey at ${event.value.score}%${event.value.won ? ' - Made it to Oregon!' : ''}`;
       }
+      setEvents((prevEvents) => [...prevEvents, event]);
     };
 
     GameNotifier.addHandler(handleGameEvent);
 
-    return () => GameNotifier.removeHandler(handleGameEvent);
+    const socket = GameNotifier.socket;
+    socket.onopen = () => setConnectionStatus('Connected');
+    socket.onerror = () => setConnectionStatus('Connection failed');
+    socket.onclose = () => setConnectionStatus('Disconnected');
+
+    // Cleanup
+    return () => {
+      GameNotifier.removeHandler(handleGameEvent);
+    };
   }, []);
 
   const handleStartClick = () => {
@@ -56,12 +67,24 @@ export function StartGame({ userName }) {
         </div>
         <div className="text-box-game-output-start" align="center">
           <p>Welcome to the Oregon Trail!</p>
+          <p>{connectionStatus}</p>
         </div>
       </nav>
-      <div className= 'web-socket-box'>
-            <h3>Recent Events:</h3>
-        </div>
-      <button className="start-button" onClick={handleStartClick}>
+      <div className="web-socket-box">
+        <h3>Recent Events:</h3>
+        <ul>
+          {events.map((event, index) => (
+            <li key={index}>
+              {event.from} - {event.type}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        className="start-button"
+        onClick={handleStartClick}
+        disabled={GameNotifier.socket.readyState !== WebSocket.OPEN}
+      >
         Start Game
       </button>
     </main>
